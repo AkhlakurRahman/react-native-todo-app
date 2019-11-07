@@ -17,7 +17,7 @@ export default function App() {
     setTodos(modifiedTodo);
   };
 
-  toggleDone = item => {
+  const toggleDone = item => {
     let newTodos = [...todos];
     newTodos = todos.map(todo => {
       if (todo.id === item.id) {
@@ -25,6 +25,12 @@ export default function App() {
       }
       return todo;
     });
+    setTodos(newTodos);
+  };
+
+  const removeTodo = item => {
+    let newTodos = [...todos];
+    newTodos = todos.filter(todo => todo.id !== item.id);
     setTodos(newTodos);
   };
 
@@ -42,7 +48,11 @@ export default function App() {
       <FlatList
         data={todos}
         renderItem={({ item }) => (
-          <TodoList todo={item} toggleDone={() => toggleDone(item)} />
+          <TodoList
+            todo={item}
+            toggleDone={() => toggleDone(item)}
+            removeTodo={() => removeTodo(item)}
+          />
         )}
         keyExtractor={item => item.id.toString()}
       />
